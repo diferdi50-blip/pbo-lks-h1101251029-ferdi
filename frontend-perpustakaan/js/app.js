@@ -1,9 +1,12 @@
+
 import { renderDashboard } from './pages/dashboard.js';
 import { renderBooksPage } from './pages/books.js';
+import { renderCategoriesPage } from './pages/categories.js';
 
 const routes = {
     dashboard: renderDashboard,
     books: renderBooksPage,
+    categories: renderCategoriesPage,
 };
 
 async function router() {
@@ -23,7 +26,10 @@ async function router() {
     });
 
     const container = document.getElementById('app');
-    container.innerHTML = 'Memuat...';
+
+    container.innerHTML = `
+        <div class="text-center py-16 text-gray-400">Memuat...</div>
+    `;
 
     try {
         await renderFn(container);
@@ -33,9 +39,7 @@ async function router() {
         container.innerHTML = `
             <div class="text-center py-16">
                 <p class="text-red-600 font-medium">Terjadi kesalahan</p>
-                <p class="text-sm text-gray-500 mt-2">
-                    ${error.message}
-                </p>
+                <p class="text-sm text-gray-500 mt-2">${error.message}</p>
             </div>
         `;
     }

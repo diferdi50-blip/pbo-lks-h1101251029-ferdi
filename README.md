@@ -3,10 +3,10 @@
 - NIM : H1101251029
 - Kelas: A
 ## Daftar Pertemuan 
-- [ ] Pertemuan 1 — Setup & Database 
-- [ ] Pertemuan 2 — Core OOP 
-- [ ] Pertemuan 3 — Framework & Routing 
-- [ ] Pertemuan 4 — Testing Backend 
-- [ ] Pertemuan 5 — CRUD Kategori 
-- [ ] Pertemuan 6 — Frontend 
-- [ ] Pertemuan 7 — Integrasi & Finalisasi 
+- [x] Pertemuan 1 — Setup & Database 
+- [x] Pertemuan 2 — Core OOP 
+- [x] Pertemuan 3 — Framework & Routing 
+- [x] Pertemuan 4 — Testing Backend 
+- [x] Pertemuan 5 — CRUD Kategori 
+- [x] Pertemuan 6 — Frontend 
+- [x] Pertemuan 7 — Integrasi & Finalisasi 

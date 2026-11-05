@@ -1,5 +1,16 @@
 <?php
 
+// ============ CORS Headers ============
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Accept');
+header('Access-Control-Max-Age: 86400');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Config\Env;
@@ -25,10 +36,12 @@ $container = new Container();
 
 $container->singleton(PDO::class, fn() => Connection::get());
 
-// Binding Book (sudah ada)
+// Binding Book
 $container->bind(
     BookRepositoryInterface::class,
-    fn(Container $c) => new MySQLBookRepository($c->make(PDO::class))
+    fn(Container $c) => new MySQLBookRepository(
+        $c->make(PDO::class)
+    )
 );
 
 $container->bind(
@@ -45,10 +58,12 @@ $container->bind(
     )
 );
 
-// TAMBAHAN — Binding Category
+// Binding Category
 $container->bind(
     CategoryRepositoryInterface::class,
-    fn(Container $c) => new MySQLCategoryRepository($c->make(PDO::class))
+    fn(Container $c) => new MySQLCategoryRepository(
+        $c->make(PDO::class)
+    )
 );
 
 $container->bind(
@@ -71,18 +86,18 @@ $router = new Router();
 $bookCtrl = $container->make(BookController::class);
 $categoryCtrl = $container->make(CategoryController::class);
 
-// Route Book (sudah ada)
-$router->get('/api/books',         [$bookCtrl, 'index']);
-$router->get('/api/books/{id}',    [$bookCtrl, 'show']);
-$router->post('/api/books',        [$bookCtrl, 'store']);
-$router->put('/api/books/{id}',    [$bookCtrl, 'update']);
+// Route Book
+$router->get('/api/books', [$bookCtrl, 'index']);
+$router->get('/api/books/{id}', [$bookCtrl, 'show']);
+$router->post('/api/books', [$bookCtrl, 'store']);
+$router->put('/api/books/{id}', [$bookCtrl, 'update']);
 $router->delete('/api/books/{id}', [$bookCtrl, 'destroy']);
 
-// TAMBAHAN — Route Category
-$router->get('/api/categories',         [$categoryCtrl, 'index']);
-$router->get('/api/categories/{id}',    [$categoryCtrl, 'show']);
-$router->post('/api/categories',        [$categoryCtrl, 'store']);
-$router->put('/api/categories/{id}',    [$categoryCtrl, 'update']);
+// Route Category
+$router->get('/api/categories', [$categoryCtrl, 'index']);
+$router->get('/api/categories/{id}', [$categoryCtrl, 'show']);
+$router->post('/api/categories', [$categoryCtrl, 'store']);
+$router->put('/api/categories/{id}', [$categoryCtrl, 'update']);
 $router->delete('/api/categories/{id}', [$categoryCtrl, 'destroy']);
 
 // ============ 4. Dispatch ============
